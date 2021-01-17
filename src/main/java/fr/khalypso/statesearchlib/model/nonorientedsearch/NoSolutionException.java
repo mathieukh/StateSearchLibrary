@@ -1,8 +1,4 @@
-package Model.NonOrientedSearchModel;
-
-/**
- * Created by sylom on 13/01/2016.
- */
+package fr.khalypso.statesearchlib.model.nonorientedsearch;
 
 /**
  * Exception qui sera soulevée lorsqu'aucune solution ne sera trouvée
@@ -11,7 +7,8 @@ package Model.NonOrientedSearchModel;
  * @version 1.0
  */
 public class NoSolutionException extends Exception {
-    public NoSolutionException() {
-        super("Aucune solution trouvée");
-    }
+
+	public NoSolutionException() {
+		super("Aucune solution trouvée");
+	}
 }

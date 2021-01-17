@@ -1,8 +1,4 @@
-package Model;
-
-/**
- * Created by sylom on 13/01/2016.
- */
+package fr.khalypso.statesearchlib.model;
 
 /**
  * Exception qui sera utilisé lors de l'échec de l'application d'un opérateur sur un état
