@@ -1,9 +1,9 @@
 package fr.khalypso.statesearchlib.model.orientedsearch;
 
 import fr.khalypso.statesearchlib.model.Node;
-import fr.khalypso.statesearchlib.model.nonorientedsearch.NoSolutionException;
 import fr.khalypso.statesearchlib.model.Solution;
 import fr.khalypso.statesearchlib.model.State;
+import fr.khalypso.statesearchlib.model.nonorientedsearch.NoSolutionException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -34,7 +34,7 @@ public class AStar extends OrientedSearchAlgorithm {
 		while (!openList.isEmpty()) {
 			Node u = openList.poll();
 			if (u.state.isTerminal()) {
-				return makeSolution(u);
+				return Solution.buildFromNode(u);
 			}
 			for (State v : u.state.successors()) {
 				Node vn = new Node(v, u);
@@ -62,16 +62,6 @@ public class AStar extends OrientedSearchAlgorithm {
 			}
 		}
 		return false;
-	}
-
-	private Solution makeSolution(Node node) {
-		Solution solution = new Solution();
-		solution.addFirst(node);
-		while (node != null) {
-			node = node.parent;
-			solution.addFirst(node);
-		}
-		return solution;
 	}
 
 }

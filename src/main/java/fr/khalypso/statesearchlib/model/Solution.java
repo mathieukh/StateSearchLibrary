@@ -10,4 +10,19 @@ import java.util.LinkedList;
  */
 public class Solution extends LinkedList<Node> {
 
+	/**
+	 * Build a {@link Solution} from a {@link Node}.
+	 * @param node
+	 * @return
+	 */
+	public static Solution buildFromNode(Node node) {
+		Solution solution = new Solution();
+		solution.addFirst(node);
+		while (node != null) {
+			node = node.parent;
+			solution.addFirst(node);
+		}
+		return solution;
+	}
+
 };
