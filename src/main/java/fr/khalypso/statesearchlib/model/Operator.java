@@ -1,27 +1,26 @@
 package fr.khalypso.statesearchlib.model;
 
+import fr.khalypso.statesearchlib.model.exception.OperatorApplicationException;
+
 /**
- * L'interface Operator permet de modéliser un opérateur
- *
- * @author Mathieu KHALEM
- * @version 1.0
+ * Operator model class.
  */
-public abstract class Operator {
+public interface Operator {
 
 	/**
-	 * Propriété permettant de stocker le coût de l'opérateur
+	 * Return the cost of the operator.
 	 */
-	public int cost = 0;
+	int getCost();
 
 	/**
-	 * Appliquer l'opérateur à un état pour obtenir le nouvel état
+	 * Apply the operator to the state given.
 	 *
 	 * @param state
-	 * 	L'état auquel sera appliqué l'opérateur
-	 * @return L'état obtenu après application de l'opérateur
+	 * 	the state on which the operator must be applied
+	 * @return the reached state after the application of the state
 	 * @throws OperatorApplicationException
-	 * 	L'opérateur ne peut être appliquée sur l'état actuel
+	 * 	an error occurred during the application of the operator
 	 */
-	public abstract State apply(State state) throws OperatorApplicationException;
+	State apply(final State state) throws OperatorApplicationException;
 
 }

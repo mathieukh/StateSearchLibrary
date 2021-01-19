@@ -1,49 +1,66 @@
 package fr.khalypso.statesearchlib.model;
 
+import lombok.Getter;
+
 /**
- * L'interface Node permet de modéliser un noeud qui sera associé à un état
- *
- * @author Mathieu KHALEM
- * @version 1.0
+ * Node class model.
  */
 public class Node {
 
 	/**
-	 * Stocke le père du noeud
+	 * Parent of this node.
 	 */
-	public Node parent = null;
+	@Getter
+	private final Node parent;
 
 	/**
-	 * Stocke l'état associé au noeud
+	 * State within this node.
 	 */
-	public State state = null;
+	@Getter
+	private final State state;
 
 	/**
-	 * Stocke le cout vers ce noeud
+	 * Cumulated cost to reach this node.
 	 */
-	public int cost = 0;
+	@Getter
+	private final int cost;
 
 	/**
-	 * Constructeur complet de la classe Node
+	 * Apply an operator and return the reached node.
 	 *
-	 * @param state
-	 * 	Etat associé au noeud
-	 * @param parent
-	 * 	Noeud parent de celui-ci
+	 * @param operator
+	 * 	operator to apply
+	 * @return the reached node.
 	 */
-	public Node(State state, Node parent) {
-		this.state = state;
-		this.parent = parent;
-		this.cost = parent.cost + state.operator.cost;
+	public Node applyOperator(final Operator operator) {
+		return new Node(
+			this,
+			operator.apply(state),
+			this.cost + operator.getCost());
 	}
 
 	/**
-	 * Constructeur partiel de classe Node. Appelera le constructeur complet avec les paramètres null
+	 * Constructor.
+	 * <p>
+	 * Used for the initial node
+	 * </p>
 	 *
 	 * @param state
-	 * 	Etat associé au noeud
+	 * 	the initial state
 	 */
 	public Node(State state) {
-		this(state, null);
+		this(null, state, 0);
+	}
+
+	/**
+	 * Hidden constructor.
+	 * <p>
+	 * Complete constructor.
+	 * </p>
+	 */
+	private Node(Node parent, State state, int cost) {
+		this.parent = parent;
+		this.state = state;
+		this.cost = cost;
 	}
 }
