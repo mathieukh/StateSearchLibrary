@@ -2,12 +2,13 @@ package fr.khalypso.statesearchlib.model.algorithm
 
 import fr.khalypso.statesearchlib.model.Node
 import fr.khalypso.statesearchlib.model.SearchAlgorithm
+import fr.khalypso.statesearchlib.model.Solution
 import fr.khalypso.statesearchlib.model.State
 import java.util.*
 
 class DfsAlgorithm : SearchAlgorithm {
 
-    override fun findLeaf(initial: State): Node? {
+    override fun solve(initial: State): Solution? {
         val stack = Stack<Node>()
         val discovered: MutableSet<Node> = HashSet()
         stack.push(Node.root(initial))
@@ -17,7 +18,7 @@ class DfsAlgorithm : SearchAlgorithm {
                 continue
             }
             if (current.state.isTerminal) {
-                return current
+                return current.convertAsSolution()
             }
             discovered.add(current)
             current.state.operators.map { current.applyOperator(it) }.forEach { stack.push(it) }

@@ -1,9 +1,6 @@
 package fr.khalypso.statesearchlib.model.algorithm
 
-import fr.khalypso.statesearchlib.model.Heuristic
-import fr.khalypso.statesearchlib.model.Node
-import fr.khalypso.statesearchlib.model.SearchAlgorithm
-import fr.khalypso.statesearchlib.model.State
+import fr.khalypso.statesearchlib.model.*
 import java.util.ArrayList
 import java.util.Comparator
 import java.util.PriorityQueue
@@ -20,7 +17,7 @@ class AStar(private val heuristic: Heuristic) : SearchAlgorithm {
         }
     }
 
-    override fun findLeaf(initial: State<*>): Node? {
+    override fun solve(initial: State): Solution? {
         val closedList = ArrayList<Node>()
         val openList = PriorityQueue(comparator)
         val init = Node.root(initial)
@@ -28,7 +25,7 @@ class AStar(private val heuristic: Heuristic) : SearchAlgorithm {
         while (!openList.isEmpty()) {
             val u = openList.poll()
             if (u.state.isTerminal) {
-                return u
+                return u.convertAsSolution()
             }
             for (op in u.state.operators) {
                 val vn = u.applyOperator(op)
