@@ -1,7 +1,5 @@
 package fr.khalypso.statesearchlib.model
 
-import java.util.*
-
 /**
  * Node class model.
  */
@@ -9,7 +7,7 @@ class Node private constructor(
     /**
      * Parent of this node.
      */
-    private val _parent: Node?,
+    private val parent: Node?,
     /**
      * State within this node.
      */
@@ -34,8 +32,6 @@ class Node private constructor(
         )
     }
 
-    val parent: Optional<Node> = Optional.ofNullable(_parent)
-
     fun convertAsSolution(): Solution {
         if (!state.isTerminal) {
             throw IllegalStateException("The state of the node is not terminal. Won't create a solution from here.")
@@ -43,8 +39,8 @@ class Node private constructor(
         var nextNode = this
         val solution = Solution()
         solution.addFirst(nextNode)
-        while (nextNode.parent.isPresent) {
-            nextNode = nextNode.parent.get()
+        while (nextNode.parent != null) {
+            nextNode = nextNode.parent!!
             solution.addFirst(nextNode)
         }
         return solution
@@ -58,7 +54,7 @@ class Node private constructor(
          * the initial state
          */
         fun root(state: State): Node {
-            return Node(_parent = null, state = state, cost = 0)
+            return Node(parent = null, state = state, cost = 0)
         }
     }
 }
